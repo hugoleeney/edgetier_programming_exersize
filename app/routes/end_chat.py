@@ -1,9 +1,12 @@
 import os
 
+import fs
+
 from app import app, models, database
 from datetime import datetime
 from http import HTTPStatus
 from integrations import SavageRentals
+from integrations.absolutely_class_airlines import AbsolutelyClassAirlines, FileInterface
 
 
 @app.route("/chats/<int:chat_id>/end", methods=["POST"])
@@ -24,7 +27,7 @@ def end_chat(chat_id):
         savage_rentals = SavageRentals()
         savage_rentals.store_chat(chat)
     elif os.environ['CLIENT_NAME'] == 'absolutely_class_airlines':
-        # TODO: Store chat in text file.
-        pass
+        client = AbsolutelyClassAirlines('ACA', os.environ['CLIENT_NAME'], FileInterface(fs.open_fs('osfs://./')))
+        client.store_chat(chat)
 
     return "", HTTPStatus.OK

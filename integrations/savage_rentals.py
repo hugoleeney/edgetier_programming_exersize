@@ -4,6 +4,15 @@ URL = "https://savage-rentals-fake-address.com/"
 
 
 class SavageRentals:
+
+    @staticmethod
+    def format_transcript(chat):
+        time = chat.handle_start.strftime("%d %b %Y %H:%M")
+        opening = f'Chat on {time}:\n\n'
+        messages = '\n'.join([SavageRentals._format_message(message) for message in chat.messages])
+        content = opening + messages
+        return content
+
     """
     Connect to Savage Rental's CRM.
     """
@@ -12,10 +21,7 @@ class SavageRentals:
         Create and store a transcript of a chat in the CRM.
         :param chat: Chat to store.
         """
-        time = chat.handle_start.strftime("%d %b %Y %H:%M")
-        opening = f'Chat on {time}:\n\n'
-        messages = '\n'.join([self._format_message(message) for message in chat.messages])
-        content = opening + messages
+        content = self.format_transcript(chat)
 
         try:
             requests.post(URL, json={"content": content})
