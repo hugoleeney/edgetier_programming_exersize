@@ -1,7 +1,5 @@
 # EdgeTier Python Challenge
 
-**Note:** Please do not put your solution in a public repository (GitHub etc.). We are sending this to multiple candidates and do not want anyone to have an unfair advantage.
-
 # Description
 
 EdgeTier's main product, Arthur, allows contact centre agents to answer customer queries via live chat and email. This project contains a tiny subset of the system with a database of users, chats, and chat messages. 
